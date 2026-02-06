@@ -9,6 +9,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import com.austin.mcbutitremembersyourdeaths.DeathMessageStore;
+
 
 @Mod.EventBusSubscriber(
         modid = "mcbutitremembersyourdeaths",
@@ -45,27 +47,23 @@ public class DeathListener {
     };
 
     @SubscribeEvent
-    public static void onPlayerDeath(LivingDeathEvent event) {
-        if (!(event.getEntity() instanceof Player player)) return;
-        if (player.level().isClientSide()) return; // Only run on server
+    
+public static void onPlayerDeath(LivingDeathEvent event) {
+    if (!(event.getEntity() instanceof Player player)) return;
+    if (player.level().isClientSide()) return;
 
-        String type = event.getSource().getMsgId();
-        String key = player.getUUID().toString() + ":" + type;
+    String type = event.getSource().getMsgId();
+    String message = getFunnyMessage(type);
 
-        // Increment death count
-        int count = deathCounts.getOrDefault(key, 0) + 1;
-        deathCounts.put(key, count);
+    Component component = Component.literal(message);
 
-        // Build message with “remembers” count
-        String baseMessage = getFunnyMessage(type);
-        String finalMessage = baseMessage + " (That's " + count + (count == 1 ? " time" : " times") + " now)";
+    // Send to chat
+    player.displayClientMessage(component, false);
 
-        // Display message in chat
-        player.displayClientMessage(
-                Component.literal(finalMessage),
-                false
-        );
-    }
+    // Store for death screen (client will read this)
+    DeathMessageStore.LAST_DEATH_MESSAGE = component;
+    
+}
 
     // Picks a random funny message based on death type
     private static String getFunnyMessage(String type) {
@@ -88,5 +86,11 @@ public class DeathListener {
     private static String randomFrom(String[] arr) {
         return arr[random.nextInt(arr.length)];
     }
+    @SubscribeEvent
+public static void onRespawn(net.minecraftforge.event.entity.player.PlayerEvent.PlayerRespawnEvent event) {
+    if (event.getEntity().level().isClientSide()) {
+        DeathMessageStore.LAST_DEATH_MESSAGE = null;
+    }
+}
 }
 
