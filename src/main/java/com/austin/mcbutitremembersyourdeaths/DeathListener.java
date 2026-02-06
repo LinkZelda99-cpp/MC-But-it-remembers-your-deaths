@@ -49,32 +49,11 @@ public static void onPlayerDeath(LivingDeathEvent event) {
     String type = event.getSource().getMsgId();
     String message = getFunnyMessage(type);
 
-    // Send to chat (not overlay)
     player.displayClientMessage(
         Component.literal(message),
         false
     );
 }
-
-
-
-
-//     @SubscribeEvent
-// public static void onPlayerDeath(LivingDeathEvent event) {
-//     if (!(event.getEntity() instanceof Player player)) return;
-
-//     String type = event.getSource().getMsgId();
-//     String message = getFunnyMessage(type);
-
-//     // Display the message in the player's chat
-//     player.displayClientMessage(
-//         Component.literal(message),
-//         true
-//     );
-// }
-
-    
-
     private static String getFunnyMessage(String type) {
         if (type == null) return randomFrom(genericMessages);
 
