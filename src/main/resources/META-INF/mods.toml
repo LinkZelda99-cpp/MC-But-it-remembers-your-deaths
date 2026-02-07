@@ -4,6 +4,6 @@ license="MIT"
 
 [[mods]]
 modId="mcbutitremembersyourdeaths"
-version="0.0.3"
+version="0.1.0"
 displayName="MC But It Remembers Your Deaths"
 description="A Minecraft mod that gives funny messages when you die repeatedly."
