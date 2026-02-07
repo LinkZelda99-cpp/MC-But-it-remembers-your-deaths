@@ -22,16 +22,16 @@ public class DeathScreenListener {
         if (DeathMessageStore.LAST_DEATH_MESSAGE == null) return;
 
         Minecraft mc = Minecraft.getInstance();
-        LocalPlayer player = mc.player;
-if (player == null) return;
 
-event.setCanceled(true);
-mc.setScreen(
+if (!(event.getScreen() instanceof DeathScreen)) return;
+if (mc.player == null || mc.level == null) return;
+
+event.setNewScreen(
     new DeathScreen(
         DeathMessageStore.LAST_DEATH_MESSAGE,
         mc.level.getLevelData().isHardcore(),
-        player
+        mc.player
     )
 );
-}
+    }
 }
