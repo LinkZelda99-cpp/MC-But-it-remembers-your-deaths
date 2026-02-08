@@ -3,8 +3,8 @@ MC But It Remembers Your Deaths
 A Minecraft Forge mod (1.20.x) that shows funny messages when you die repeatedly.
 
 Features
-- Funny death messages in chat
-- Supports fall, fire, lava, magic, projectiles, explosions, and generic deaths
+- Funny death messages in chat and overwrites the game over messages
+- Supports fall, lava, projectiles, explosions, and generic deaths
 - Works with Forge 1.20.x+
 
 Installation
