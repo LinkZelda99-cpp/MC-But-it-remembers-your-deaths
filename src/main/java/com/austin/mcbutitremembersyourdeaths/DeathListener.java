@@ -27,15 +27,19 @@ public class DeathListener {
                 {"Gravity called. You didn’t answer.", "Another fall… seriously?"}, 
                 {"This is getting repetitive… you fell… again!", "Falling seems to be your specialty."}, 
                 {"Are you trying to touch the ground again?", "The ground misses you."}, 
-                {"Gravity is relentless… and so are you.", "You’re on a first-name basis with the ground."} 
+                {"Gravity is relentless… and so are you.", "You’re on a first-name basis with the ground."},
+                {"Dying over 50 times from falling? Seems about right.", "You have become one with the ground."},
+                {"You have fallen again, and again, and again, and again, and again and...", "You are definitely falling on purpose by now...", "You have died over a 100 times by... falling."}
         });
 
         deathMessages.put("fire", new String[][] {
-                {"Hot enough for you?", "You're on fire!"},
+                {"Hot enough for you?", "Something's buring...", "Left with 3rd degree burns."},
                 {"Someone call the fire department!", "Are you playing with fire?"},
                 {"Stop playing with fire… literally.", "You might be immune to heat by now."},
                 {"The flames recognize you now.", "Fire thinks it owns you."},
-                {"Fire and you: eternal rivals.", "You have a burning reputation now."}
+                {"Fire and you: eternal rivals.", "You have a burning reputation now."},
+                {"Fire and you have a story. It is blazing good.", "Fire must be everywhere..."},
+                {"The story of fire and you is now written in every atom of the universe"}
         });
 
         deathMessages.put("lava", new String[][] {
@@ -43,7 +47,9 @@ public class DeathListener {
                 {"Molten death is stylish.", "That lava is looking familiar."},
                 {"Lava: 1, You: 0.", "At this point, lava hates you personally."},
                 {"Lava has marked you as its nemesis.", "The lava watches… and waits."},
-                {"Lava knows your name.", "You are the chosen of molten death."}
+                {"Lava knows your name.", "You are the chosen of molten death."},
+                {"The lava now feels bad... just kidding.", "Try to swim next time. Or maybe not. It doesn't really matter."},
+                {"You have died from lava over 100 times.", "Lava is very happy at this point"}
         });
 
         deathMessages.put("explosion", new String[][] {
@@ -51,7 +57,9 @@ public class DeathListener {
                 {"Are you trying to make a new crater?", "Explosives are tricky, huh?"},
                 {"Explosions love you more than life does…", "You are one with TNT now."},
                 {"Every blast greets you personally.", "You are a walking boom signal."},
-                {"Explosions bow to your power… sort of.", "You and TNT: a legendary story."}
+                {"Explosions bow to your power… sort of.", "You and TNT: a legendary story."},
+                {"The TNT is wondering how this is even possible. You are probably also."},
+                {"You have been blasted into a million pieces over 100 times."}
         });
 
         deathMessages.put("mob", new String[][] {
@@ -59,7 +67,9 @@ public class DeathListener {
                 {"Maybe fight back?", "Mobs are relentless."},
                 {"The mobs are laughing at you.", "You’re their favorite target."},
                 {"You are famous among mobs now.", "They know your weaknesses."},
-                {"Legendary target: you.", "Mobs speak your name in fear… or laughter."}
+                {"Legendary target: you.", "Mobs speak your name in fear… or laughter."},
+                {"The mobs have defeated you over 50 times.", "The mobs talk to each other about killing you. And they have succeeded."},
+                {"Over 100 deaths from mobs. Wow.", "You are the mobs punching bag."}
         });
     }
 
@@ -133,7 +143,8 @@ public class DeathListener {
         else if (count <= 5) tier = 1;
         else if (count <= 10) tier = 2;
         else if (count <= 20) tier = 3;
-        else tier = 4;
+        else if (count <= 50) tier = 4;
+        else tier = 5;
 
         // Randomly select a message from any tier up to current tier
         String[][] messages = deathMessages.getOrDefault(type, deathMessages.get("mob"));
