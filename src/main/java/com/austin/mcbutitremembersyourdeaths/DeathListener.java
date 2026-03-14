@@ -114,10 +114,21 @@ public class DeathListener {
         CompoundTag data = player.getPersistentData();
         CompoundTag deathData = data.getCompoundOrEmpty("FunnyDeathCounts");
 
+        // // Increment death count safely
+        // int count = deathData.getIntOr(type, 0) + 1;
+        // deathData.putInt(type, count);
+        // data.put("FunnyDeathCounts", deathData);
+
         // Increment death count safely
         int count = deathData.getIntOr(type, 0) + 1;
         deathData.putInt(type, count);
         data.put("FunnyDeathCounts", deathData);
+
+        // If this is the first time dying this way, use vanilla message
+        if (count == 1) {
+          DeathMessageStore.LAST_DEATH_MESSAGE = null;
+          return;
+}
 
         // Compute current tier (0–4)
         int tier;
